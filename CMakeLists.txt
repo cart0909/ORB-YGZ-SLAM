@@ -53,6 +53,13 @@ find_package(Cholmod REQUIRED)
 find_package( Glog REQUIRED )
 include_directories( ${GLOG_INCLUDE_DIRS} )
 
+# systrace
+set(SYSTRACE_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/Thirdparty/systrace)
+set(SYSTRACE_SRC_FILE ${PROJECT_SOURCE_DIR}/Thirdparty/systrace/tracer.cpp)
+
+# ThreadPool
+set(THREADPOOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/Thirdparty/ThreadPool)
+
 include_directories(
 ${PROJECT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/include
@@ -62,6 +69,8 @@ ${PROJECT_SOURCE_DIR}/Thirdparty/sophus
 ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
 ${CHOLMOD_INCLUDE_DIR}
+${SYSTRACE_INCLUDE_DIR}
+${THREADPOOL_INCLUDE_DIR}
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -88,12 +97,14 @@ src/Initializer.cc
 src/Viewer.cc
 src/SparseImageAlign.cc
 src/Align.cc
+src/Global.cpp
 
 src/IMU/configparam.cpp
 src/IMU/imudata.cpp
 src/IMU/IMUPreintegrator.cpp
 src/IMU/NavState.cpp
 src/IMU/g2otypes.cpp
+${SYSTRACE_SRC_FILE}
 )
 
 target_link_libraries(${PROJECT_NAME}
